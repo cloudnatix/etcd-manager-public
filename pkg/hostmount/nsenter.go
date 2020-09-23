@@ -62,6 +62,18 @@ func (n *Mounter) Mount(source string, target string, fstype string, options []s
 	return n.doNsenterMount(source, target, fstype, options)
 }
 
+// MountSensitive is the same as Mount() but this method allows
+// sensitiveOptions to be passed in a separate parameter from the normal
+// mount options and ensures the sensitiveOptions are never logged. This
+// method should be used by callers that pass sensitive material (like
+// passwords) as mount options.
+func (n *Mounter) MountSensitive(source string, target string, fstype string, options []string, sensitiveOptions []string) error {
+	opts := []string{}
+	opts = append(opts, options...)
+	opts = append(opts, sensitiveOptions...)
+	return n.Mount(source, target, fstype, opts)
+}
+
 // doNsenterMount nsenters the host's mount namespace and performs the
 // requested mount.
 func (n *Mounter) doNsenterMount(source, target, fstype string, options []string) error {

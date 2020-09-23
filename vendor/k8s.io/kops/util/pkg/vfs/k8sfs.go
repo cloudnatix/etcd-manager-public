@@ -68,10 +68,6 @@ func (p *KubernetesPath) Remove() error {
 	return fmt.Errorf("KubernetesPath::Remove not supported")
 }
 
-func (p *KubernetesPath) RemoveAllVersions() error {
-	return p.Remove()
-}
-
 func (p *KubernetesPath) Join(relativePath ...string) Path {
 	args := []string{p.key}
 	args = append(args, relativePath...)

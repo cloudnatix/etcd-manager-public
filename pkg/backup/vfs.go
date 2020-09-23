@@ -113,7 +113,9 @@ func (s *vfsStore) RemoveBackup(backup string) error {
 	}
 
 	for _, f := range files {
-		err := f.RemoveAllVersions()
+		// TODO(kenji): Move this back to RemoveAllVersions() once our forked kops version is
+		// updated to latest.
+		err := f.Remove()
 		if err != nil {
 			return fmt.Errorf("error deleting backups in %q: %v", p, err)
 		}

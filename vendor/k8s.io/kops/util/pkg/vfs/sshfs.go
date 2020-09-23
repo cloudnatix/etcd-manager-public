@@ -111,10 +111,6 @@ func (p *SSHPath) Remove() error {
 	return nil
 }
 
-func (p *SSHPath) RemoveAllVersions() error {
-	return p.Remove()
-}
-
 func (p *SSHPath) Join(relativePath ...string) Path {
 	args := []string{p.path}
 	args = append(args, relativePath...)
@@ -179,11 +175,11 @@ func (p *SSHPath) WriteFile(data io.ReadSeeker, acl ACL) error {
 
 	if err == nil {
 		if acl != nil {
-			sshAcl, ok := acl.(*SSHAcl)
+			sshACL, ok := acl.(*SSHAcl)
 			if !ok {
 				err = fmt.Errorf("unexpected acl type %T", acl)
 			} else {
-				err = sftpClient.Chmod(tempfile, sshAcl.Mode)
+				err = sftpClient.Chmod(tempfile, sshACL.Mode)
 				if err != nil {
 					err = fmt.Errorf("error during chmod of %q: %v", tempfile, err)
 				}

@@ -3,6 +3,8 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "go_default_library",
     srcs = [
+        "azureblob.go",
+        "azureclient.go",
         "cache.go",
         "context.go",
         "fs.go",
@@ -24,6 +26,8 @@ go_library(
     importpath = "k8s.io/kops/util/pkg/vfs",
     visibility = ["//visibility:public"],
     deps = [
+        "//vendor/github.com/Azure/azure-pipeline-go/pipeline:go_default_library",
+        "//vendor/github.com/Azure/azure-storage-blob-go/azblob:go_default_library",
         "//vendor/github.com/aws/aws-sdk-go/aws:go_default_library",
         "//vendor/github.com/aws/aws-sdk-go/aws/awserr:go_default_library",
         "//vendor/github.com/aws/aws-sdk-go/aws/credentials:go_default_library",
@@ -42,9 +46,9 @@ go_library(
         "//vendor/github.com/gophercloud/gophercloud/pagination:go_default_library",
         "//vendor/github.com/pkg/sftp:go_default_library",
         "//vendor/golang.org/x/crypto/ssh:go_default_library",
-        "//vendor/golang.org/x/net/context:go_default_library",
-        "//vendor/golang.org/x/oauth2/google:go_default_library",
+        "//vendor/golang.org/x/oauth2:go_default_library",
         "//vendor/google.golang.org/api/googleapi:go_default_library",
+        "//vendor/google.golang.org/api/option:go_default_library",
         "//vendor/google.golang.org/api/storage/v1:go_default_library",
         "//vendor/k8s.io/apimachinery/pkg/util/wait:go_default_library",
         "//vendor/k8s.io/client-go/util/homedir:go_default_library",

@@ -59,9 +59,6 @@ type Path interface {
 	// Remove deletes the file
 	Remove() error
 
-	// RemoveAllVersions completely deletes the file (with all its versions and markers).
-	RemoveAllVersions() error
-
 	// Base returns the base name (last element)
 	Base() string
 
@@ -105,7 +102,7 @@ func IsClusterReadable(p Path) bool {
 	}
 
 	switch p.(type) {
-	case *S3Path, *GSPath, *SwiftPath, *OSSPath, *FSPath:
+	case *S3Path, *GSPath, *SwiftPath, *OSSPath, *FSPath, *AzureBlobPath:
 		return true
 
 	case *KubernetesPath:
